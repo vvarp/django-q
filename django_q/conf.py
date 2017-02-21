@@ -143,6 +143,9 @@ class Conf(object):
 
     # Optional Rollbar key
     ROLLBAR = conf.get('rollbar', {})
+    
+    # Optional Sentry key
+    SENTRY = conf.get('sentry', {})
 
     # OSX doesn't implement qsize because of missing sem_getvalue()
     try:
@@ -189,6 +192,17 @@ if Conf.ROLLBAR:
 else:
     rollbar = None
 
+# sentry
+if Conf.SENTRY:
+    sentry_conf = deepcopy(Conf.SENTRY)
+    try:
+        from raven import Client
+        sentry = Client(**sentry_conf)
+    except ImportError:
+        sentry = None
+
+else:
+    sentry = None
 
 # get parent pid compatibility
 def get_ppid():

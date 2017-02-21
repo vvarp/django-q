@@ -368,6 +368,19 @@ You can redirect worker exceptions directly to your `Rollbar <https://rollbar.co
 Please check the Pyrollbar `configuration reference <https://github.com/rollbar/pyrollbar#configuration-reference>`__ for more options.
 Note that you will need a `Rollbar <https://rollbar.com/>`__ account and access token to use this feature.
 
+sentry
+~~~~~~
+Another option for capturing exceptions is to use `Sentry <https://sentry.io/>`__ service. To do that, you'll need to install Sentry's client library via ``pip install raven`` and adding Sentry-specific config dictionary:
+
+    # Sentry config
+    Q_CLUSTER = {
+        'sentry': {
+            'dsn': 'https://public_key:secret_key@sentry.local/project_id'
+        }
+    }
+
+Check `Sentry's documentation <https://docs.sentry.io/clients/python/advanced/#client-arguments>`__ for all available client options.
+
 cpu_affinity
 ~~~~~~~~~~~~
 

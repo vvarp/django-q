@@ -30,7 +30,7 @@ from django import db
 import signing
 import tasks
 
-from django_q.conf import Conf, logger, psutil, get_ppid, rollbar
+from django_q.conf import Conf, logger, psutil, get_ppid, rollbar, sentry
 from django_q.models import Task, Success, Schedule
 from django_q.status import Stat, Status
 from django_q.brokers import get_broker
@@ -370,6 +370,8 @@ def worker(task_queue, result_queue, timer, timeout=Conf.TIMEOUT):
                 result = (e, False)
                 if rollbar:
                     rollbar.report_exc_info()
+                if sentry:
+                    sentry.captureException()
         # We're still going
         if not result:
             db.close_old_connections()
@@ -382,6 +384,8 @@ def worker(task_queue, result_queue, timer, timeout=Conf.TIMEOUT):
                 result = ('{}'.format(e), False)
                 if rollbar:
                     rollbar.report_exc_info()
+                if sentry:
+                    sentry.captureException()
         # Process result
         task['result'] = result[0]
         task['success'] = result[1]
