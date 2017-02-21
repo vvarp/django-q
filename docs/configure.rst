@@ -370,7 +370,7 @@ Note that you will need a `Rollbar <https://rollbar.com/>`__ account and access 
 
 sentry
 ~~~~~~
-Another option for capturing exceptions is to use `Sentry <https://sentry.io/>`__ service. To do that, you'll need to install Sentry's client library via ``pip install raven`` and adding Sentry-specific config dictionary:
+Another option for capturing exceptions is to use `Sentry <https://sentry.io/>`__ service. To do that, you'll need to install Sentry's client library via ``pip install raven`` and adding Sentry-specific config dictionary::
 
     # Sentry config
     Q_CLUSTER = {
